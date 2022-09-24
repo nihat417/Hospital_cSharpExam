@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital_cSharpExam", "Hospital_cSharpExam\Hospital_cSharpExam.csproj", "{9DC1E16E-0E6A-4D91-864E-C035E424EADB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DC1E16E-0E6A-4D91-864E-C035E424EADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC1E16E-0E6A-4D91-864E-C035E424EADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC1E16E-0E6A-4D91-864E-C035E424EADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC1E16E-0E6A-4D91-864E-C035E424EADB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B559B9F4-B4A0-46F2-8104-29F3E21C9982}
+	EndGlobalSection
+EndGlobal

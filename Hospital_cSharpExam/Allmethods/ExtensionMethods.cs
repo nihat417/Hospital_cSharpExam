@@ -1,4 +1,4 @@
-﻿namespace Hospital_cSharpExam;
+﻿namespace Hospital_cSharpExam.Allmethods;
 
 static class ExtensionMethods
 {

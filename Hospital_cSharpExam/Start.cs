@@ -1,10 +1,11 @@
-﻿namespace Start;
-using Hospital;
-using Department;
-using Doctor;
-using Staticmethods;
+﻿using Hospital_cSharpExam;
+
+namespace Start;
 using Hospital_cSharpExam.Time;
 using Newtonsoft.Json;
+using Hospital_cSharpExam.Humans;
+using Hospital_cSharpExam.Hospital;
+using Hospital_cSharpExam.Allmethods;
 
 public class Start
 {
@@ -39,7 +40,6 @@ public class Start
             }
 
         };
-
         while (true)
         {
 
@@ -69,19 +69,31 @@ public class Start
             }
 
             //users
+            
+            Client.InputdatasClient();
 
-            //Client.InputdatasClient();
-
-            //
-
+            ConsoleSpinner spinner = new ConsoleSpinner();
+            spinner.Delay = 300;
+            int animationcounter = 0;
+            Console.WriteLine("\n\n\n\n\n");
+            while (true)
+            {
+                animationcounter += 1;
+                Console.CursorLeft = 50;
+                spinner.Turn(displayMsg: "Loading ", sequenceCode: 5);
+                if (animationcounter == 15)
+                    break;
+            }
+            
             
 
-            Console.Clear();
-            var depnames = hosp.departmentsname.Select(s => s.departmentsname).ToList();
 
+            Console.Clear();
+
+            
+            var depnames = hosp.departmentsname.Select(s => s.departmentsname).ToList();
             int selectDepartment = Convert.ToInt32(Control.GetSelect("", new string[] { $"{depnames[0]}", $"{depnames[1]}", "Exit" }) + 1);
             int selecteddepartment = selectDepartment - 1;
-
 
             if (selectDepartment == 1)
             {
@@ -90,9 +102,12 @@ public class Start
                 int selecteddoctor = selectdoctors - 1;
                 var worktimesdoc = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes.Select(s => $"{s._startsession} : {s._startsession} --  {(s._Isrezerved ? "Reserved" : "Not Reserved")}").ToList();
 
-                
+                Console.Clear();
+                Console.CursorLeft = 50;
                 Console.WriteLine("Enter a date (e.g. 22/12/1987): ");
+                Console.CursorLeft = 50;
                 DateTime inputtedDate = DateTime.Parse(Console.ReadLine());
+                
                 
 
                 if (selectdoctors == 1)
@@ -108,6 +123,20 @@ public class Start
                         if (workdate.Checkrezervision())
                         {
                             workdate.Reezerv();
+                            Console.Clear();
+                            animationcounter = 0;
+                            while (true)
+                            {
+                                animationcounter += 1;
+                                Console.CursorLeft = 50;
+                                spinner.Turn(displayMsg: "Loading ", sequenceCode: 5);
+                                if (animationcounter == 15)
+                                    break;
+                            }
+                            Console.Clear();
+                            Console.CursorLeft = 50;
+                            Console.WriteLine($"Rezerv etdiniz twk:)");
+                            Thread.Sleep(1000);
                             break;
                         }
                     }
@@ -125,12 +154,27 @@ public class Start
                         if (workdate.Checkrezervision())
                         {
                             workdate.Reezerv();
+                            Console.Clear();
+                            animationcounter = 0;
+                            while (true)
+                            {
+                                animationcounter += 1;
+                                Console.CursorLeft = 50;
+                                spinner.Turn(displayMsg: "Loading ", sequenceCode: 5);
+                                if (animationcounter == 15)
+                                    break;
+                            }
+                            Console.Clear();
+                            Console.CursorLeft = 50;
+                            Console.WriteLine($"Rezerv etdiniz twk:)");
+                            Thread.Sleep(1000);
                             break;
                         }
                     }
                 }
                 else if (selectdoctors == 3)
                 {
+
                     while (true)
                     {
                         var selecttime = Convert.ToInt32(Control.GetSelect("", new string[] { $"{worktimesdoc[0]}", $"{worktimesdoc[1]}", $"{worktimesdoc[2]}", "Back" }) + 1);
@@ -141,12 +185,25 @@ public class Start
                         if (workdate.Checkrezervision())
                         {
                             workdate.Reezerv();
+                            Console.Clear();
+                            animationcounter = 0;
+                            while (true)
+                            {
+                                animationcounter += 1;
+                                Console.CursorLeft = 50;
+                                spinner.Turn(displayMsg: "Loading ", sequenceCode: 5);
+                                if (animationcounter == 15)
+                                    break;
+                            }
+                            Console.Clear();
+                            Console.CursorLeft = 50;
+                            Console.WriteLine($"Rezerv etdiniz twk:)");
+                            Thread.Sleep(1000);
                             break;
                         }
                     }
                 }
             }
-
             else if (selectDepartment == 2)
             {
                 var docsname = hosp.departmentsname[selecteddepartment]._doctors.Select(s => s._name).ToList();
@@ -154,7 +211,10 @@ public class Start
                 int selecteddoctor = selectdoctors - 1;
                 var worktimesdoc = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes.Select(s => $"{s._startsession} : {s._startsession} --  {(s._Isrezerved ? "Reserved" : "Not Reserved")}").ToList();
 
+                Console.Clear();
+                Console.CursorLeft = 50;
                 Console.WriteLine("Enter a date (e.g. 22/12/1987): ");
+                Console.CursorLeft = 50;
                 DateTime inputtedDate = DateTime.Parse(Console.ReadLine());
 
                 if (selectdoctors == 1)
@@ -170,6 +230,20 @@ public class Start
                         if (workdate.Checkrezervision())
                         {
                             workdate.Reezerv();
+                            Console.Clear();
+                            animationcounter = 0;
+                            while (true)
+                            {
+                                animationcounter += 1;
+                                Console.CursorLeft = 50;
+                                spinner.Turn(displayMsg: "Loading ", sequenceCode: 5);
+                                if (animationcounter == 15)
+                                    break;
+                            }
+                            Console.Clear();
+                            Console.CursorLeft = 50;
+                            Console.WriteLine($"Rezerv etdiniz twk:)");
+                            Thread.Sleep(1000);
                             break;
                         }
                     }
@@ -186,6 +260,20 @@ public class Start
                         if (workdate.Checkrezervision())
                         {
                             workdate.Reezerv();
+                            Console.Clear();
+                            animationcounter = 0;
+                            while (true)
+                            {
+                                animationcounter += 1;
+                                Console.CursorLeft = 50;
+                                spinner.Turn(displayMsg: "Loading ", sequenceCode: 5);
+                                if (animationcounter == 15)
+                                    break;
+                            }
+                            Console.Clear();
+                            Console.CursorLeft = 50;
+                            Console.WriteLine($"Rezerv etdiniz twk:)");
+                            Thread.Sleep(1000);
                             break;
                         }
                     }
@@ -202,6 +290,20 @@ public class Start
                         if (workdate.Checkrezervision())
                         {
                             workdate.Reezerv();
+                            Console.Clear();
+                            animationcounter = 0;
+                            while (true)
+                            {
+                                animationcounter += 1;
+                                Console.CursorLeft = 50;
+                                spinner.Turn(displayMsg: "Loading ", sequenceCode: 5);
+                                if (animationcounter == 15)
+                                    break;
+                            }
+                            Console.Clear();
+                            Console.CursorLeft = 50;
+                            Console.WriteLine($"Rezerv etdiniz twk:)");
+                            Thread.Sleep(1000);
                             break;
                         }
                     }

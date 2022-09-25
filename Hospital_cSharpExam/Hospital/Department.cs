@@ -1,6 +1,6 @@
-﻿namespace Department;
-using Doctor;
+﻿using Hospital_cSharpExam.Humans;
 
+namespace Hospital_cSharpExam.Hospital;
 public class Department
 {
     public string departmentsname { get; set; }

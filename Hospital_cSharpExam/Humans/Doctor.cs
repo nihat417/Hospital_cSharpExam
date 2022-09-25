@@ -1,11 +1,10 @@
-﻿namespace Doctor;
-using Human;
-using Hospital_cSharpExam.Time;
+﻿using Hospital_cSharpExam.Time;
 
+namespace Hospital_cSharpExam.Humans;
 public class Doctor : Human
 {
     public Guid _id = Guid.NewGuid();
-    public List<Worktime> _worktimes { get; set; }    
+    public List<Worktime> _worktimes { get; set; }
 
     public Workdate Workdates { get; set; }
 
@@ -13,7 +12,7 @@ public class Doctor : Human
         : base(name, surname)
     {
         _worktimes = new List<Worktime>();
-        
+
     }
 
     public override string ToString()

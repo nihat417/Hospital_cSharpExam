@@ -36,6 +36,7 @@
 
     public static int GetSelect(string selection, string[] selections)
     {
+        Console.CursorLeft = 50;
         int select = default;
         int selectionsCount = Convert.ToInt32(selections.Length);
 
@@ -47,6 +48,8 @@
 
             for (int i = 0; i < selectionsCount; i++)
             {
+                Console.CursorLeft = 50;
+                Console.CursorVisible = false;
                 char axe = ' ';
                 if (i == select)
                 {

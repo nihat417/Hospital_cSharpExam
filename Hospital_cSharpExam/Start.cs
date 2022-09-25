@@ -3,9 +3,7 @@ using Hospital;
 using Department;
 using Doctor;
 using Staticmethods;
-using Client;
 using Hospital_cSharpExam.Time;
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 public class Start
@@ -72,38 +70,46 @@ public class Start
 
             //users
 
-            Client.InputdatasClient();
+            //Client.InputdatasClient();
+
             //
+
+            
 
             Console.Clear();
             var depnames = hosp.departmentsname.Select(s => s.departmentsname).ToList();
 
-            int selectDepartment = Convert.ToInt32(Control.GetSelect("", new string[] { $"{depnames[0]}", $"{depnames[1]}","Exit"}) + 1);
-            int selecteddepartment= selectDepartment - 1;
+            int selectDepartment = Convert.ToInt32(Control.GetSelect("", new string[] { $"{depnames[0]}", $"{depnames[1]}", "Exit" }) + 1);
+            int selecteddepartment = selectDepartment - 1;
 
 
             if (selectDepartment == 1)
             {
                 var docsname = hosp.departmentsname[selecteddepartment]._doctors.Select(s => s._name).ToList();
-                int selectdoctors = Convert.ToInt32(Control.GetSelect("", new string[] { $"{docsname[0]}", $"{docsname[1]}", $"{docsname[2]}"}) + 1);
+                int selectdoctors = Convert.ToInt32(Control.GetSelect("", new string[] { $"{docsname[0]}", $"{docsname[1]}", $"{docsname[2]}" }) + 1);
                 int selecteddoctor = selectdoctors - 1;
                 var worktimesdoc = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes.Select(s => $"{s._startsession} : {s._startsession} --  {(s._Isrezerved ? "Reserved" : "Not Reserved")}").ToList();
+
+                
+                Console.WriteLine("Enter a date (e.g. 22/12/1987): ");
+                DateTime inputtedDate = DateTime.Parse(Console.ReadLine());
+                
+
                 if (selectdoctors == 1)
-                {
+                {                                                
                     while (true)
-                    {
+                    {                        
                         var selecttime = Convert.ToInt32(Control.GetSelect("", new string[] { $"{worktimesdoc[0]}", $"{worktimesdoc[1]}", $"{worktimesdoc[2]}", "Back" }) + 1);
                         var doctor = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor];
-
+                        Workdate workdate = new Workdate(inputtedDate, hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes[selecttime-1]);
                         if (selecttime - 1 == 3)
                             break;
 
-                        if (doctor.Checkrezervision(selecttime - 1))
+                        if (workdate.Checkrezervision())
                         {
-                            doctor.Reezerv(selecttime - 1);
+                            workdate.Reezerv();
                             break;
                         }
-                       
                     }
                 }
                 else if (selectdoctors == 2)
@@ -112,12 +118,13 @@ public class Start
                     {
                         var selecttime = Convert.ToInt32(Control.GetSelect("", new string[] { $"{worktimesdoc[0]}", $"{worktimesdoc[1]}", $"{worktimesdoc[2]}", "Back" }) + 1);
                         var doctor = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor];
+                        Workdate workdate = new Workdate(inputtedDate, hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes[selecttime - 1]);
 
                         if (selecttime - 1 == 3)
                             break;
-                        if (doctor.Checkrezervision(selecttime - 1))
+                        if (workdate.Checkrezervision())
                         {
-                            doctor.Reezerv(selecttime - 1);
+                            workdate.Reezerv();
                             break;
                         }
                     }
@@ -128,65 +135,41 @@ public class Start
                     {
                         var selecttime = Convert.ToInt32(Control.GetSelect("", new string[] { $"{worktimesdoc[0]}", $"{worktimesdoc[1]}", $"{worktimesdoc[2]}", "Back" }) + 1);
                         var doctor = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor];
-
+                        Workdate workdate = new Workdate(inputtedDate, hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes[selecttime - 1]);
                         if (selecttime - 1 == 3)
                             break;
-                        if (doctor.Checkrezervision(selecttime - 1))
+                        if (workdate.Checkrezervision())
                         {
-                            doctor.Reezerv(selecttime - 1);
+                            workdate.Reezerv();
                             break;
                         }
                     }
                 }
-                //yuxardaki bunun optimizasya olnmus versyasidir
-
-                //else if (selectdocors == 3)
-                //{
-                //    var worktimesdoc = hosp.departmentsname[0]._doctors[2]._worktimes.Select(s => $"{s._startsession._hour} : {s._startsession._minute} -- {s._endsession._hour} :{s._endsession._minute} -- {s._Isrezerved}").ToList();
-                //    while (true)
-                //    {
-                //        var selecttime = Convert.ToInt32(Control.GetSelect("", new string[] { $"{worktimesdoc[0]}", $"{worktimesdoc[1]}", $"{worktimesdoc[2]}" }) + 1);
-                //        if (selecttime == 1 && hosp.departmentsname[0]._doctors[2]._worktimes[0]._Isrezerved == false)
-                //        {
-                //            hosp.departmentsname[0]._doctors[2]._worktimes[0]._Isrezerved = true;
-                //            break;
-                //        }
-                //        else if (selecttime == 2 && hosp.departmentsname[0]._doctors[2]._worktimes[1]._Isrezerved == false)
-                //        {
-                //            hosp.departmentsname[0]._doctors[2]._worktimes[1]._Isrezerved = true;
-                //            break;
-                //        }
-                //        else if (selecttime == 3 && hosp.departmentsname[0]._doctors[2]._worktimes[2]._Isrezerved == false)
-                //        {
-                //            hosp.departmentsname[0]._doctors[2]._worktimes[2]._Isrezerved = true;
-                //            break;
-                //        }
-                //        else
-                //        {
-                //            Console.WriteLine("bura rezerv olunub");
-                //            continue;
-                //        }
-                //    }
-                //}
             }
+
             else if (selectDepartment == 2)
             {
                 var docsname = hosp.departmentsname[selecteddepartment]._doctors.Select(s => s._name).ToList();
                 int selectdoctors = Convert.ToInt32(Control.GetSelect("", new string[] { $"{docsname[0]}", $"{docsname[1]}", $"{docsname[2]}" }) + 1);
                 int selecteddoctor = selectdoctors - 1;
                 var worktimesdoc = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes.Select(s => $"{s._startsession} : {s._startsession} --  {(s._Isrezerved ? "Reserved" : "Not Reserved")}").ToList();
+
+                Console.WriteLine("Enter a date (e.g. 22/12/1987): ");
+                DateTime inputtedDate = DateTime.Parse(Console.ReadLine());
+
                 if (selectdoctors == 1)
                 {
                     while (true)
                     {
                         var selecttime = Convert.ToInt32(Control.GetSelect("", new string[] { $"{worktimesdoc[0]}", $"{worktimesdoc[1]}", $"{worktimesdoc[2]}", "Back" }) + 1);
                         var doctor = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor];
+                        Workdate workdate = new Workdate(inputtedDate, hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes[selecttime - 1]);
 
                         if (selecttime - 1 == 3)
                             break;
-                        if (doctor.Checkrezervision(selecttime - 1))
+                        if (workdate.Checkrezervision())
                         {
-                            doctor.Reezerv(selecttime - 1);
+                            workdate.Reezerv();
                             break;
                         }
                     }
@@ -197,12 +180,12 @@ public class Start
                     {
                         var selecttime = Convert.ToInt32(Control.GetSelect("", new string[] { $"{worktimesdoc[0]}", $"{worktimesdoc[1]}", $"{worktimesdoc[2]}", "Back" }) + 1);
                         var doctor = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor];
-
+                        Workdate workdate = new Workdate(inputtedDate, hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes[selecttime - 1]);
                         if (selecttime - 1 == 3)
                             break;
-                        if (doctor.Checkrezervision(selecttime - 1))
+                        if (workdate.Checkrezervision())
                         {
-                            doctor.Reezerv(selecttime - 1);
+                            workdate.Reezerv();
                             break;
                         }
                     }
@@ -213,16 +196,16 @@ public class Start
                     {
                         var selecttime = Convert.ToInt32(Control.GetSelect("", new string[] { $"{worktimesdoc[0]}", $"{worktimesdoc[1]}", $"{worktimesdoc[2]}", "Back" }) + 1);
                         var doctor = hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor];
-
+                        Workdate workdate = new Workdate(inputtedDate, hosp.departmentsname[selecteddepartment]._doctors[selecteddoctor]._worktimes[selecttime - 1]);
                         if (selecttime - 1 == 3)
                             break;
-                        if (doctor.Checkrezervision(selecttime - 1))
+                        if (workdate.Checkrezervision())
                         {
-                            doctor.Reezerv(selecttime - 1);
+                            workdate.Reezerv();
                             break;
                         }
                     }
-                }          
+                }
             }
             else if (selectDepartment == 3)
                 break;

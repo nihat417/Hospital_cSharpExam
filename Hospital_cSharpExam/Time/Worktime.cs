@@ -6,13 +6,28 @@ public class Worktime
     public bool _Isrezerved { get; set; }
 
 
-    public void Isrezerved()
-    {
-
-    }
 
     public override string ToString()
     {
         return $"{_startsession} -- {_endsession} -- {_Isrezerved}";
+    }
+}
+
+public class Workdate
+{
+    public DateTime Year { get; set; }
+   
+    public Worktime worktim { get; set; }
+
+    public Workdate(DateTime Year, Worktime worktim)
+    {
+        this.Year = Year;
+        
+        this.worktim = worktim;
+    }
+
+    public override string ToString()
+    {
+        return $"{Year} -- {worktim}";
     }
 }

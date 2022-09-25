@@ -1,14 +1,15 @@
-﻿namespace  Staticmethods;
-using Doctor;
+﻿namespace Staticmethods;
+using Hospital_cSharpExam.Time;
+
 public static class Staticmethods
 {
-    public static bool Checkrezervision(this Doctor doctor, int sel)
+    public static bool Checkrezervision(this Workdate workdate)
     {
-        return !doctor._worktimes[sel]._Isrezerved;
+        return !workdate.worktim._Isrezerved;
     }
 
-    public static void Reezerv(this Doctor doctor, int sel)
+    public static void Reezerv(this Workdate workdate)
     {
-        doctor._worktimes[sel]._Isrezerved = true;
+        workdate.worktim._Isrezerved= true;
     }
 }
